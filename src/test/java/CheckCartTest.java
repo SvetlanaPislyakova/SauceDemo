@@ -9,7 +9,7 @@ import org.testng.asserts.SoftAssert;
 import java.time.Duration;
 import java.util.HashMap;
 
-public class checkCartTest {
+public class CheckCartTest {
 
     @Test
     public void checkCart() {
@@ -52,5 +52,6 @@ public class checkCartTest {
         softAssert.assertEquals(priceInCart, priceBackpack);
 
         driver.quit();
+        softAssert.assertAll();
     }
 }
