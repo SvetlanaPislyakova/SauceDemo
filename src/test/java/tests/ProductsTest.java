@@ -70,13 +70,13 @@ public class ProductsTest extends BaseTest {
     @Test
     public void addBackPackToCart() {
         productsPage.addBackpackToCart();
-        softAssert.assertEquals(productsPage.getCartBadgeCount(), 1);
+        assertEquals(productsPage.getCartBadgeCount(), 1);
     }
 
     @Test
     public void addTwoProductsToCart() {
         productsPage.addBackpackToCart();
         productsPage.addBikeLightToCart();
-        softAssert.assertEquals(productsPage.getCartBadgeCount(), 2);
+        assertEquals(productsPage.getCartBadgeCount(), 2);
     }
 }
