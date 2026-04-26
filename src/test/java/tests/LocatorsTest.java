@@ -1,33 +1,16 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+package tests;
 
-import java.time.Duration;
-import java.util.HashMap;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
+
 import java.util.List;
 
-public class LocatorsTest {
+public class LocatorsTest extends BaseTest {
 
     @Test
     public void checkLocators() {
-        ChromeOptions options = new ChromeOptions();
-        HashMap<String, Object> chromePrefs = new HashMap<>();
-        chromePrefs.put("credentials_enable_service", false);
-        chromePrefs.put("profile.password_manager_enabled", false);
-        options.setExperimentalOption("prefs", chromePrefs);
-        options.addArguments("--incognito");
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-popup-blocking");
-        options.addArguments("--disable-infobars");
-        WebDriver driver = new ChromeDriver(options);
-        SoftAssert softAssert = new SoftAssert();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://www.saucedemo.com/");
-
         WebElement nameInput = driver.findElement(By.id("user-name"));
         nameInput.sendKeys("standard_user");
         WebElement passwordInput = driver.findElement(By.name("password"));
@@ -38,7 +21,6 @@ public class LocatorsTest {
         WebElement button = driver.findElement(By.tagName("button"));
         WebElement linkText = driver.findElement(By.linkText("Sauce Labs Backpack"));
         WebElement partLinkText = driver.findElement(By.partialLinkText("Backpack"));
-
         WebElement backpackImg = driver.findElement(By.xpath("//img[@alt='Sauce Labs Backpack']"));
         WebElement backpackLink = driver.findElement(By.xpath("//div[text()='Sauce Labs Backpack']"));
         WebElement bikeLightImg = driver.findElement(By.xpath("//img[contains(@alt, 'Bike Light')]"));
@@ -52,7 +34,6 @@ public class LocatorsTest {
         WebElement backpackPrice = driver.findElement
                 (By.xpath("//button[@data-test='add-to-cart-sauce-labs-backpack']//preceding::div[1]"));
         WebElement tshirtLink = driver.findElement(By.xpath("//div[@data-test='inventory-item-name' and contains(text(), 'T-Shirt')]"));
-
         WebElement burgerMenu = driver.findElement(By.cssSelector(".bm-burger-button"));
         List<WebElement> addToCartBtn = driver.findElements(By.cssSelector(".btn.btn_primary"));
         WebElement cartIcon = driver.findElement(By.cssSelector(".shopping_cart_container .shopping_cart_link"));
@@ -65,6 +46,5 @@ public class LocatorsTest {
         WebElement filter = driver.findElement(By.cssSelector("[data-test^='product-sort']"));
         WebElement title = driver.findElement(By.cssSelector("[class$='logo']"));
         WebElement addToCartBackpackBtn = driver.findElement(By.cssSelector("[data-test*='cart-sauce-labs-backpack']"));
-        driver.quit();
     }
 }
