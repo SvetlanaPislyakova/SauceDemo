@@ -33,6 +33,5 @@ public class LoginTest extends BaseTest {
         loginPage.login("standard_user", "test");
         assertEquals(loginPage.getErrorMsg(), "Epic sadface: Username and password do not match any" +
                 " user in this service");
-
     }
 }

@@ -16,25 +16,25 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void completeCheckout() {
+    public void checkoutWithAllFields() {
         checkoutPage.fillInfo("Svetlana", "Pislyakova", "123456");
         assertEquals(checkoutPage.getTitle(), "Checkout: Overview");
     }
 
     @Test
-    public void checkoutWithEptyFirstName() {
+    public void checkoutWithEmptyFirstName() {
         checkoutPage.fillInfo("", "Pislyakova", "123456");
         assertEquals(checkoutPage.getErrorMsg(), "Error: First Name is required");
     }
 
     @Test
-    public void checkoutWithEptyLastName() {
+    public void checkoutWithEmptyLastName() {
         checkoutPage.fillInfo("Svetlana", "", "123456");
         assertEquals(checkoutPage.getErrorMsg(), "Error: Last Name is required");
     }
 
     @Test
-    public void checkoutWithEptyCode() {
+    public void checkoutWithEmptyCode() {
         checkoutPage.fillInfo("Svetlana", "Pislyakova", "");
         assertEquals(checkoutPage.getErrorMsg(), "Error: Postal Code is required");
     }
