@@ -40,7 +40,6 @@ public class CartPage extends BasePage{
 
     public List<Double> getProductPricesInCartAsDouble() {
         List<Double> productsPrices = new ArrayList<>();
-        System.out.println(getProductPricesInCart());
         for (String price : getProductPricesInCart()) {
             productsPrices.add(Double.parseDouble(price.replace("$", "")));
         }
