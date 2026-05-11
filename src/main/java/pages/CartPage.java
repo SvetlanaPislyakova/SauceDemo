@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,9 +14,9 @@ public class CartPage extends BasePage{
     private final By PRODUCT_NAME_IN_CART = By.xpath("//*[@data-test='inventory-item-name']");
     private final By PRODUCT_PRICE_IN_CART = By.xpath("//*[@data-test='inventory-item-price']");
     private final By CONTINUE_SHOPPING_BTN = By.xpath("//*[@data-test='continue-shopping']");
-    private final By REMOVE_BIKE_LIGHT_FROM_CART = By.xpath("//*[@data-test='remove-sauce-labs-bike-light']");
     private final By CHECKOUT_BTN = By.xpath("//*[@data-test='checkout']");
-
+    private final String REMOVE_PRODUCT_FROM_CART_PATTERN =
+            "//*[text()='%s']/ancestor::div[@class='cart_item']/descendant::button[text()='Remove']";
     public CartPage(WebDriver driver) {
         super(driver);
     }
@@ -30,17 +31,16 @@ public class CartPage extends BasePage{
     }
 
     public List<String> getProductPricesInCart() {
-        List<WebElement> products = driver.findElements(PRODUCT_PRICE_IN_CART);
-        List<String> productNames = new ArrayList<>();
-        for(WebElement item : products) {
-            productNames.add(item.getText());
+        List<WebElement> prices = driver.findElements(PRODUCT_PRICE_IN_CART);
+        List<String> productPrices = new ArrayList<>();
+        for(WebElement item : prices) {
+            productPrices.add(item.getText());
         }
-        return productNames;
+        return productPrices;
     }
 
     public List<Double> getProductPricesInCartAsDouble() {
         List<Double> productsPrices = new ArrayList<>();
-        System.out.println(getProductPricesInCart());
         for (String price : getProductPricesInCart()) {
             productsPrices.add(Double.parseDouble(price.replace("$", "")));
         }
@@ -55,8 +55,9 @@ public class CartPage extends BasePage{
         return driver.findElements(PRODUCT_IN_CART);
     }
 
-    public void removeBikeLightFromCart() {
-        driver.findElement(REMOVE_BIKE_LIGHT_FROM_CART).click();
+    @Step("Удаление товара с названием '{productName}' из корзины")
+    public void removeProductFromCart(String productName) {
+        driver.findElement(By.xpath(String.format(REMOVE_PRODUCT_FROM_CART_PATTERN, productName))).click();
     }
 
     public void checkout() {
