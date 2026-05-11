@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,23 +16,13 @@ public class ProductsPage extends BasePage {
     private final By FILTER = By.xpath("//*[@data-test='product-sort-container']");
     private final By PRODUCT_NAMES = By.xpath("//*[@data-test='inventory-item-name']");
     private final By PRODUCT_PRICES = By.xpath("//*[@data-test='inventory-item-price']");
-    private final By ADD_BACKPACK_TO_CART_BTN =
-            By.xpath("//*[@data-test='add-to-cart-sauce-labs-backpack']");
-    private final By REMOVE_BACKPACK_FROM_CART_BTN =
-            By.xpath("//*[@data-test='remove-sauce-labs-backpack']");
-    private final By ADD_BIKE_LIGHT_TO_CART_BTN =
-            By.xpath("//*[@data-test='add-to-cart-sauce-labs-bike-light']");
-    private final By REMOVE_BIKE_LIGHT_FROM_CART_BTN =
-            By.xpath("//*[@data-test='remove-sauce-labs-bike-light']");
     private final By CART_BADGE = By.xpath("//*[@data-test='shopping-cart-badge']");
     private final By GO_TO_CART_BTN = By.xpath("//*[@data-test='shopping-cart-link']");
+    private final String ADD_TO_CART_PATTERN =
+            "//*[text()='%s']/ancestor::div[@class='inventory_item']/descendant::button[text()='Add to cart']";
 
     public ProductsPage(WebDriver driver) {
         super(driver);
-    }
-
-    public void open(){
-        driver.get(BASE_URL + "/inventory.html");
     }
 
     public String getTitle() {
@@ -98,14 +89,9 @@ public class ProductsPage extends BasePage {
         return productsPrices;
     }
 
-    public void addBackpackToCart() {
-        driver.findElement(ADD_BACKPACK_TO_CART_BTN).click();
-        driver.findElement(REMOVE_BACKPACK_FROM_CART_BTN).isDisplayed();
-    }
-
-    public void addBikeLightToCart() {
-        driver.findElement(ADD_BIKE_LIGHT_TO_CART_BTN).click();
-        driver.findElement(REMOVE_BIKE_LIGHT_FROM_CART_BTN).isDisplayed();
+    @Step("Добавление товара с названием '{productName}' в корзину")
+    public void addProductToCart(String productName) {
+        driver.findElement(By.xpath(String.format(ADD_TO_CART_PATTERN, productName))).click();
     }
 
     public int getCartBadgeCount() {
