@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest {
     @Owner("Светлана Пислякова")
     public void checkLoginWithPositiveCred() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(user, password);
         assertEquals(productsPage.getTitle(), "Product");
     }
 

@@ -28,6 +28,10 @@ public class BaseTest {
     protected CartPage cartPage;
     protected CheckoutPage checkoutPage;
 
+    protected String user = System.getProperty("user");
+    protected String password = System.getProperty("password");
+
+
     @Step("Открытие браузера")
     @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true)
@@ -68,6 +72,6 @@ public class BaseTest {
 
     public void loginAsStandardUser() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(user, password);
     }
 }
