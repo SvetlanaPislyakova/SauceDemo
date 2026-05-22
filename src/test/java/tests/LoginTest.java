@@ -21,9 +21,10 @@ public class LoginTest extends BaseTest {
     @Flaky
     @Owner("Светлана Пислякова")
     public void checkLoginWithPositiveCred() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        assertEquals(productsPage.getTitle(), "Product");
+        loginPage.open()
+                .isPageOpened()
+                .login("standard_user", "secret_sauce");
+        assertEquals(productsPage.getTitle(), "Products");
     }
 
     @DataProvider(name = "Тестовые данные для негативного логина")
@@ -42,8 +43,8 @@ public class LoginTest extends BaseTest {
     @TmsLink("ITM-2")
     @Issue("ITM-2")
     public void negativeLogin(String username, String password, String errorMsg) {
-        loginPage.open();
-        loginPage.login(username, password);
+        loginPage.open()
+                .negativeLogin(username, password);
         assertEquals(loginPage.getErrorMsg(), errorMsg);
     }
 }

@@ -27,8 +27,8 @@ public class CartTest extends BaseTest {
     @TmsLink("ITM-3")
     @Issue("ITM-3")
     public void checkProductInCart() {
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.goToCart();
+        productsPage.addProductToCart("Sauce Labs Backpack")
+                .goToCart();
         List<String> itemNames = cartPage.getProductNamesInCart();
         List<Double> itemPrices = cartPage.getProductPricesInCartAsDouble();
         softAssert.assertEquals(itemNames.size(), 1);
@@ -44,9 +44,9 @@ public class CartTest extends BaseTest {
     @TmsLink("ITM-4")
     @Issue("ITM-4")
     public void checkContinueShoppingBtn() {
-        productsPage.addProductToCart("Sauce Labs Bike Light");
-        productsPage.goToCart();
-        cartPage.continueShopping();
+        productsPage.addProductToCart("Sauce Labs Bike Light")
+                .goToCart()
+                .continueShopping();
         assertEquals(productsPage.getTitle(), "Products");
     }
 
@@ -56,8 +56,8 @@ public class CartTest extends BaseTest {
     @TmsLink("ITM-5")
     @Issue("ITM-5")
     public void checkRemoveProductFromCart() {
-        productsPage.addProductToCart("Sauce Labs Bike Light");
-        productsPage.goToCart();
+        productsPage.addProductToCart("Sauce Labs Bike Light")
+                .goToCart();
         softAssert.assertEquals(cartPage.getProductListInCart().size(), 1);
         cartPage.removeProductFromCart("Sauce Labs Bike Light");
         softAssert.assertTrue(cartPage.getProductListInCart().isEmpty());
@@ -71,9 +71,9 @@ public class CartTest extends BaseTest {
     @TmsLink("ITM-6")
     @Issue("ITM-6")
     public void checkoutOrder() {
-        productsPage.addProductToCart("Sauce Labs Bike Light");
-        productsPage.goToCart();
-        cartPage.checkout();
+        productsPage.addProductToCart("Sauce Labs Bike Light")
+                .goToCart()
+                .checkout();
         assertEquals(checkoutPage.getTitle(), "Checkout: Your Information");
     }
 }

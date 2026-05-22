@@ -3,6 +3,7 @@ package tests;
 import io.qameta.allure.Description;
 import io.qameta.allure.Issue;
 import io.qameta.allure.TmsLink;
+import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,9 +15,9 @@ public class CheckoutTest extends BaseTest {
     @BeforeMethod
     public void login() {
         loginAsStandardUser();
-        productsPage.addProductToCart("Sauce Labs Bike Light");
-        productsPage.goToCart();
-        cartPage.checkout();
+        productsPage.addProductToCart("Sauce Labs Bike Light")
+                .goToCart()
+                .checkout();
     }
 
     @Test(testName = "Оформление заказа с корректными данными покупателя",

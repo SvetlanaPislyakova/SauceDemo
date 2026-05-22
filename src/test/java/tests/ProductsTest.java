@@ -113,8 +113,8 @@ public class ProductsTest extends BaseTest {
     @TmsLink("ITM-16")
     @Issue("ITM-16")
     public void addTwoProductsToCart() {
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.addProductToCart("Sauce Labs Bike Light");
+        productsPage.addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bike Light");
         assertEquals(productsPage.getCartBadgeCount(), 2);
     }
 }
