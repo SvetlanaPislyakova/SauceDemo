@@ -12,9 +12,9 @@ public class LocatorsTest extends BaseTest {
     public void checkLocators() {
         driver.get("https://www.saucedemo.com/");
         WebElement nameInput = driver.findElement(By.id("user-name"));
-        nameInput.sendKeys("standard_user");
+        nameInput.sendKeys(user);
         WebElement passwordInput = driver.findElement(By.name("password"));
-        passwordInput.sendKeys("secret_sauce");
+        passwordInput.sendKeys(password);
         WebElement loginBtn = driver.findElement(By.className("submit-button"));
         loginBtn.click();
 
