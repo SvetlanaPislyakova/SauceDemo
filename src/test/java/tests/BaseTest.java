@@ -7,12 +7,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.CartPage;
 import pages.CheckoutPage;
 import pages.LoginPage;
 import pages.ProductsPage;
+import utils.PropertyReader;
 import utils.TestListener;
 
 import java.time.Duration;
@@ -26,6 +28,10 @@ public class BaseTest {
     protected ProductsPage productsPage;
     protected CartPage cartPage;
     protected CheckoutPage checkoutPage;
+
+    protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
+    protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
+
 
     @Step("Открытие браузера")
     @Parameters({"browser"})
@@ -42,9 +48,12 @@ public class BaseTest {
             options.addArguments("--disable-notifications");
             options.addArguments("--disable-popup-blocking");
             options.addArguments("--disable-infobars");
+            options.addArguments("--headless");
             driver = new ChromeDriver(options);
         } else if(browser.equalsIgnoreCase("edge")) {
-            driver = new EdgeDriver();
+            EdgeOptions options = new EdgeOptions();
+            options.addArguments("--headless");
+            driver = new EdgeDriver(options);
         }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
@@ -64,6 +73,6 @@ public class BaseTest {
 
     public void loginAsStandardUser() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(user, password);
     }
 }
