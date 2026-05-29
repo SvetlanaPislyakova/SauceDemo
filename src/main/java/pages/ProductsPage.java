@@ -1,14 +1,17 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class ProductsPage extends BasePage {
 
     private final By TITLE = By.cssSelector("[data-test=title]");
@@ -23,6 +26,19 @@ public class ProductsPage extends BasePage {
 
     public ProductsPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public ProductsPage open() {
+        log.info("ProductsPage opening");
+        driver.get(BASE_URL + "/inventory.html");
+        return this;
+    }
+
+    @Override
+    public ProductsPage isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
     }
 
     public String getTitle() {
@@ -42,24 +58,29 @@ public class ProductsPage extends BasePage {
         return options;
     }
 
-    public void chooseFilterByValue(String value) {
+    public ProductsPage chooseFilterByValue(String value) {
         Select filterOptions = new Select(driver.findElement(FILTER));
         filterOptions.selectByValue(value);
+        return this;
     }
 
     public void chooseFilterByNameAToZ() {
+        log.info("Choose filter by name from A to Z");
         chooseFilterByValue("az");
     }
 
     public void chooseFilterByNameZToA() {
+        log.info("Choose filter by name from Z to A");
         chooseFilterByValue("za");
     }
 
     public void chooseFilterByPriceLowToHigh() {
+        log.info("Choose filter by price from low to high");
         chooseFilterByValue("lohi");
     }
 
     public void chooseFilterByPriceHighToLow() {
+        log.info("Choose filter by price from high to low");
         chooseFilterByValue("hilo");
     }
 
@@ -90,15 +111,19 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Добавление товара с названием '{productName}' в корзину")
-    public void addProductToCart(String productName) {
+    public ProductsPage addProductToCart(String productName) {
+        log.info("Add product '{}' in cart", productName);
         driver.findElement(By.xpath(String.format(ADD_TO_CART_PATTERN, productName))).click();
+        return this;
     }
 
     public int getCartBadgeCount() {
         return Integer.parseInt(driver.findElement(CART_BADGE).getText());
     }
 
-    public void goToCart() {
+    public CartPage goToCart() {
+        log.info("Go to CartPage");
         driver.findElement(GO_TO_CART_BTN).click();
+        return new CartPage(driver);
     }
 }
