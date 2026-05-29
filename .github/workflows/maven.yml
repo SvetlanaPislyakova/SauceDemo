@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      USER: $({secrets.user})
-      PASSWORD: $({secret.password})
+      USER: $({secrets.USER})
+      PASSWORD: $({secret.PASSWORD})
 
     steps:
     - uses: actions/checkout@v4
