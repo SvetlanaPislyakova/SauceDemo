@@ -23,7 +23,7 @@ public class LoginTest extends BaseTest {
     public void checkLoginWithPositiveCred() {
         loginPage.open()
                  .isPageOpened()
-                 .login("standard_user", "secret_sauce");
+                 .login(user, password);
         assertEquals(productsPage.getTitle(), "Products");
     }
 
@@ -44,6 +44,7 @@ public class LoginTest extends BaseTest {
     @Issue("ITM-2")
     public void negativeLogin(String username, String password, String errorMsg) {
         loginPage.open()
+                .isPageOpened()
                 .negativeLogin(username, password);
         assertEquals(loginPage.getErrorMsg(), errorMsg);
     }
